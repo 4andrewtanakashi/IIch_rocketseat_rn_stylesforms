@@ -8,7 +8,7 @@ export default {
     attetion: '#E83F5B',
     attetion_light: 'rgba(232, 63, 91, 0.5)',
     shape: '#FFFFFF',
-    titile: '#363F5F',
+    title: '#363F5F',
     text: '#969CB2',
     background: '#F0F2F5'
   },
