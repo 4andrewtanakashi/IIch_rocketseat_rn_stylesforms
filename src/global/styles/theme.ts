@@ -1,0 +1,15 @@
+export default {
+  colors: {
+    primary: '#5636D3',
+    secundary: '#FF872C',
+    secundary_light: 'rgba(255, 135, 44, 0.3)',
+    success: '#12A454',
+    success_light: 'rgba(18, 164, 84, 0.5)',
+    attetion: '#E83F5B',
+    attetion_light: 'rgba(232, 63, 91, 0.5)',
+    shape: '#FFFFFF',
+    titile: '#363F5F',
+    text: '#969CB2',
+    background: '#F0F2F5'
+  }
+}
