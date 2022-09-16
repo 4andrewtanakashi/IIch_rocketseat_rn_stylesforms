@@ -12,13 +12,14 @@ export const Header = styled.View`
   height: ${RFPercentage(42)}px;
   background-color: ${({ theme }) => theme.colors.primary};
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   flex-direction: row;
 `;
 
 export const UserWrapper = styled.View`
   width: 100%;
   padding: 0 ${RFValue(24)}px;
+  margin-top: ${RFValue(28)}px;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
@@ -60,4 +61,8 @@ export const HighligthCards = styled.ScrollView.attrs({
   horizontal: true,
   showsHorizontalScrollIndicator: false,
   contentContainerStyle: { paddingHorizontal: 24 }
-})``;
+})`
+  width: 100%;
+  position: absolute;
+  margin-top: ${RFPercentage(20)}px;
+`;
