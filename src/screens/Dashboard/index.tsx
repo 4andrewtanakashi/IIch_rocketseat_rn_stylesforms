@@ -10,7 +10,8 @@ import {
   User,
   UserGreeting,
   UserName,
-  Icon
+  Icon,
+  HighligthCards
 } from './styles';
 
 export function Dashboard() {
@@ -31,7 +32,11 @@ export function Dashboard() {
         </UserWrapper>
       </Header>
 
-      <HighligthCard />
+      <HighligthCards>
+        <HighligthCard />
+        <HighligthCard />
+        <HighligthCard />
+      </HighligthCards>
     </Container>
   )
 }
