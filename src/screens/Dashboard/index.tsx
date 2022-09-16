@@ -33,9 +33,24 @@ export function Dashboard() {
       </Header>
 
       <HighligthCards>
-        <HighligthCard />
-        <HighligthCard />
-        <HighligthCard />
+        <HighligthCard
+          type={'up'}
+          title={'Entradas'}
+          amount={'17.400,00'}
+          lastTransaction={'Última entrada dia 13 de abril'}
+        />
+        <HighligthCard
+          type={'down'}
+          title={'Saídas'}
+          amount={'1.259,00'}
+          lastTransaction={'Última entrada dia 03 de abril'}
+        />
+        <HighligthCard
+          type={'total'}
+          title={'Total'}
+          amount={'16.141,00'}
+          lastTransaction={'01 à 16 de abril'}
+        />
       </HighligthCards>
     </Container>
   )

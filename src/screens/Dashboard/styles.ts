@@ -19,7 +19,7 @@ export const Header = styled.View`
 export const UserWrapper = styled.View`
   width: 100%;
   padding: 0 ${RFValue(24)}px;
-  margin-top: ${RFValue(28)}px;
+  margin-top: ${RFValue(58)}px;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
