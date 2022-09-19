@@ -14,10 +14,40 @@ import {
   Icon,
   HighligthCards,
   Transactions,
-  Title
+  Title,
+  TransactionList
 } from './styles';
 
 export function Dashboard() {
+  const data = [ 
+    {
+      title: 'Desenvolvimento de site',
+      amount: '12.000,00',
+      categoryDescription: {
+        name: 'Vendas',
+        icon: 'dollar-sign'
+      },
+      date: '19/09/2022'
+    },
+    {
+      title: 'Desenvolvimento de site',
+      amount: '12.000,00',
+      categoryDescription: {
+        name: 'Vendas',
+        icon: 'dollar-sign'
+      },
+      date: '19/09/2022'
+    },
+    {
+      title: 'Desenvolvimento de site',
+      amount: '12.000,00',
+      categoryDescription: {
+        name: 'Vendas',
+        icon: 'dollar-sign'
+      },
+      date: '19/09/2022'
+    } 
+  ]
   return (
     <Container>
       <Header>
@@ -58,7 +88,19 @@ export function Dashboard() {
 
       <Transactions>
         <Title>Listagem</Title>
-        <TransactionCard/>
+        <TransactionList
+          data={data}
+          renderItem={ ({item}) => 
+            <TransactionCard
+              data={item}
+            />
+          }
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{
+            paddingBottom: 0
+          }}
+        />
+        
       </Transactions>
     </Container>
   )

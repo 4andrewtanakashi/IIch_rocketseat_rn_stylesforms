@@ -11,17 +11,34 @@ import {
   DateAction
 } from './styles';
 
-export function TransactionCard() {
+interface CategoryProps {
+  name: string;
+  icon: string;
+}
+
+interface Data {
+  title: string;
+  amount: string;
+  categoryDescription: CategoryProps;
+  date: string;
+
+}
+
+interface Props {
+  data: Data;
+}
+
+export function TransactionCard( {data} : Props) {
   return (
     <Container>
-      <Title>Desenvolvimento de site</Title>
-      <Amount>R$ 12.000,00</Amount>
+      <Title>{data.title}</Title>
+      <Amount>R$ {data.amount}</Amount>
       <Footer>
         <Category>
-          <Icon name={'dollar-sign'}/>
-          <CategoryDescription>Vendas</CategoryDescription>
+          <Icon name={data.categoryDescription.icon}/>
+          <CategoryDescription>{data.categoryDescription.name}</CategoryDescription>
         </Category>
-        <DateAction>10/08/2020</DateAction>
+        <DateAction>{data.date}</DateAction>
       </Footer>
     </Container>
   )
