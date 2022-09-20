@@ -15,7 +15,7 @@ import {
 } from './styles';
 import { CategorySelectDropdown } from '../../components/Forms/CategorySelectDropdown';
 
-export function Register() {
+export function Register () {
   const [transactionType, setTransactionType] = useState('')
 
   function handleTransactionSelected (type : 'up' | 'down') {
