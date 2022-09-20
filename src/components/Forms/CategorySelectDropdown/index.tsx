@@ -1,18 +1,19 @@
-import React from 'react';
+import React from 'react'
 
 import {
   Container,
   Category,
   Icon
-} from './styles';
+} from './styles'
 
 interface Props {
-  title: string;
+  title: string
+  onPress: () => void
 }
 
-export function CategorySelectDropdown( {title} : Props) {
+export function CategorySelectDropdown( { title, onPress } : Props) {
   return (
-    <Container>
+    <Container onPress={onPress}>
       <Category>
         {title}
       </Category>

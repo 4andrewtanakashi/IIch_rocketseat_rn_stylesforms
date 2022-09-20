@@ -1,13 +1,8 @@
-import React from 'react';
-import { FlatList } from 'react-native';
-import { Button } from '../../components/Forms/Button';
+import React from 'react'
+import { FlatList } from 'react-native'
+import { Button } from '../../components/Forms/Button'
 
-import { categories } from '../../utils/categories';
-
-interface Category {
-  key: string;
-  name: string;
-}
+import { categories } from '../../utils/categories'
 
 import {
   Container,
@@ -18,17 +13,27 @@ import {
   Name,
   Separator,
   Footer
-} from './styles';
+} from './styles'
+
+interface Category {
+  key: string
+  name: string
+}
 
 interface Props {
-  category: string;
-  setCategory: (category: Category) => void;
-  closeSelectCategory: () => void;
+  category: Category
+  setCategory: (category: Category) => void
+  closeSelectCategory: () => void
 }
 
 export function CategorySelect( {
   category, setCategory, closeSelectCategory 
 } : Props) {
+
+  function handleCategorySelect (item : Category) {
+    setCategory(item)
+  }
+
   return (
     <Container>
       <Header>
@@ -41,7 +46,10 @@ export function CategorySelect( {
         style={ { flex: 1, width: '100%'} }
         keyExtractor={ (item) => item.key}
         renderItem={ ({item}) => (
-          <Category>
+          <Category
+            onPress={() => handleCategorySelect(item)}
+            isActive={category.key === item.key}
+          >
             <Icon name={item.icon} />
             <Name>{item.name}</Name>
           </Category>
@@ -50,7 +58,10 @@ export function CategorySelect( {
       />
 
       <Footer>
-        <Button title={'Selecionar...'}/>
+        <Button
+          title={'Selecionar...'}
+          onPress={closeSelectCategory}
+        />
       </Footer>
     </Container>
   )
