@@ -64,17 +64,17 @@ export function Register () {
     resolver: yupResolver(schema)
   } )
 
-  useEffect( () => {
-    async function loadData () {
-      const data = await AsyncStorage.getItem(dataKey)
-      console.log(JSON.parse(data!))
-    }
-    loadData()
-    // async function removeAll () {
-    //   await AsyncStorage.clear()
-    // }
-    // removeAll()
-  } )
+  // useEffect( () => {
+  //   async function loadData () {
+  //     const data = await AsyncStorage.getItem(dataKey)
+  //     console.log(JSON.parse(data!))
+  //   }
+  //   loadData()
+  //   async function removeAll () {
+  //     await AsyncStorage.clear()
+  //   }
+  //   removeAll()
+  // } )
 
   function handleTransactionSelected (type : 'up' | 'down') {
     setTransactionType(type)
