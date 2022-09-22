@@ -32,7 +32,7 @@ export function HighligthCard ({title, amount, lastTransaction, type} : PropsHig
       </Header>
 
       <Footer>
-        <Amount type={type}>R$ {amount}</Amount>
+        <Amount type={type}>{amount}</Amount>
         <LastTransaction type={type}>
           {lastTransaction}
         </LastTransaction>
