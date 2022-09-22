@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import { useForm } from 'react-hook-form'
 import {
   Modal,
   Keyboard,
   Alert
 } from 'react-native'
+import { useForm } from 'react-hook-form'
+import { useNavigation } from '@react-navigation/native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import uuid from 'react-native-uuid'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 import * as Yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -43,6 +45,7 @@ const schema = Yup.object().shape( {
 
 export function Register () {
   const dataKey = '@gofinances:transactions'
+  const navigation = useNavigation()
 
   const [category, setCategory] = useState( {
     key: 'category',
@@ -55,6 +58,7 @@ export function Register () {
   const {
     control,
     handleSubmit,
+    reset,
     formState : { errors }
   } = useForm( {
     resolver: yupResolver(schema)
@@ -94,10 +98,12 @@ export function Register () {
     }
 
     const newTransaction = {
+      id: String(uuid.v4()),
       name: form.name,
       amount: form.amount,
       transactionType,
-      category: category.key
+      category: category.key,
+      date: new Date()
     }
 
     try {
@@ -110,6 +116,15 @@ export function Register () {
       ]
 
       await AsyncStorage.setItem(dataKey, JSON.stringify(dataFormatted))
+
+      reset()
+      setTransactionType('')
+      setCategory( {
+        key: 'category',
+        name: 'Categoria'
+      } )
+
+      navigation.navigate('Listagem')
     } catch (error) {
       console.log(error)
       Alert.alert('Não foi possivel salvar')
