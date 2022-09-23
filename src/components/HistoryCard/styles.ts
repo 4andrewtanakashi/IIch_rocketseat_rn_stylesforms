@@ -10,7 +10,7 @@ export const Container = styled.View<ContainerProps>`
   flex-direction: row;
   justify-content: space-between;
   background-color: ${({ theme }) => theme.colors.shape};
-  padding: ${RFValue(24)}px;
+  padding: 14px ${RFValue(24)}px;
   border-radius: 5px;
   border-left-width: 5px;
   border-left-color:  ${({ color }) => color};
