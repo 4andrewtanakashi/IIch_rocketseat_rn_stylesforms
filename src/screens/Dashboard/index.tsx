@@ -31,6 +31,7 @@ export interface DataListProps extends TransactionCardProps {
 
 interface HighLightProps {
   amountTotal: string
+  lastTrasactionDate: string
 }
 
 interface HighLightData {
@@ -43,8 +44,22 @@ export function Dashboard() {
   const [isLoading, setIsLoading] = useState(true)
   const [data, setData] = useState<DataListProps[]>([])
   const [highLightData, setHighLightData] = useState<HighLightData>({} as HighLightData)
+  const [state, setState] = useState(2)
 
   const theme = useTheme()
+
+  function getLastTransactionDate (collection : DataListProps[], type : 'positive' | 'negative') {
+    const lastTransactionEntries = new Date( Math.max.apply( Math, 
+        collection.filter(
+          (transaction) => transaction.type === type
+        ).map(
+          (transaction) => new Date(transaction.date).getTime()
+        )
+      ) 
+    )
+
+    return lastTransactionEntries
+  }
 
   async function loadTransactions () {
     const dataKey = '@gofinances:transactions'
@@ -86,33 +101,47 @@ export function Dashboard() {
     )
     
     setData(transactionsFormatted)
+    
+    const lastTrasactionEntries = getLastTransactionDate(transactions, 'positive')
+    const lastTrasactionExpensives = getLastTransactionDate(transactions, 'negative')
+    const totalInterval = `01 à ${lastTrasactionExpensives.getDate()} de ${lastTrasactionExpensives.toLocaleString('pt-BR', { month: 'long' } ) }`
+    
+
     const total = entriesTotal - expensiveTotal
     setHighLightData( {
         entries: {
           amountTotal: entriesTotal.toLocaleString('pt-BR', {
             style: 'currency',
             currency: 'BRL'
-          } )
+          } ),
+          lastTrasactionDate: `${lastTrasactionEntries.getDate()} de ${lastTrasactionEntries.toLocaleString('pt-BR', { month: 'long' } ) }`
         },
         expensives: {
           amountTotal: expensiveTotal.toLocaleString('pt-BR', {
             style: 'currency',
             currency: 'BRL'
-          } )
+          } ),
+          lastTrasactionDate: `${lastTrasactionExpensives.getDate()} de ${lastTrasactionExpensives.toLocaleString('pt-BR', { month: 'long' } ) }`
         },
         total: {
           amountTotal: total.toLocaleString('pt-BR', {
             style: 'currency',
             currency: 'BRL'
-          } )
+          } ),
+          lastTrasactionDate: totalInterval
         }
     } )
     setIsLoading(false)
   }
 
   useEffect( () => {
+    const t = setInterval(
+      () => setState(2),
+      200,
+    );
     loadTransactions()
-  } )
+    return () => clearInterval(t)
+  }, [] )
 
   useFocusEffect(useCallback( () => {
         loadTransactions()
@@ -154,19 +183,19 @@ export function Dashboard() {
               type={'up'}
               title={'Entradas'}
               amount={highLightData?.entries?.amountTotal}
-              lastTransaction={'Última entrada dia 13 de abril'}
+              lastTransaction={`Última entrada dia ${highLightData.entries.lastTrasactionDate}`}
             />
             <HighligthCard
               type={'down'}
               title={'Saídas'}
               amount={highLightData?.expensives?.amountTotal}
-              lastTransaction={'Última entrada dia 03 de abril'}
+              lastTransaction={`Última saída dia ${highLightData.expensives.lastTrasactionDate}`}
             />
             <HighligthCard
               type={'total'}
               title={'Total'}
               amount={highLightData?.total?.amountTotal}
-              lastTransaction={'01 à 16 de abril'}
+              lastTransaction={`${highLightData.total.lastTrasactionDate}`}
             />
           </HighligthCards>
 
