@@ -18,7 +18,7 @@ import 'intl'
 import 'intl/locale-data/jsonp/pt-BR'
 
 import { SignIn } from './src/screens/SignIn'
-import { AuthContext } from './src/AuthContext';
+import { AuthProvider } from './src/hooks/auth'
 
 export default function App() {
   const [fontsLoader] = useFonts({
@@ -37,9 +37,9 @@ export default function App() {
         <NavigationContainer>
           <StatusBar barStyle={'light-content'}/>
           {/* <AppRoutes /> */}
-          <AuthContext.Provider value={[]}>
+          <AuthProvider>
             <SignIn />
-          </AuthContext.Provider>
+          </AuthProvider>
         </NavigationContainer>
       </ThemeProvider>
     </GestureHandlerRootView>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext } from 'react'
 
 import {
   Container,
@@ -15,8 +15,11 @@ import GoogleSvg from '../../assets/google.svg'
 import LogoSvg from '../../assets/logo.svg'
 import { RFValue } from 'react-native-responsive-fontsize';
 import { SignInSocialButtom } from '../../components/SignInSocialButtom'
+import { useAuth } from '../../hooks/auth'
 
 export function SignIn() {
+  const data = useAuth()
+
   return (
     <Container>
       <Header>
