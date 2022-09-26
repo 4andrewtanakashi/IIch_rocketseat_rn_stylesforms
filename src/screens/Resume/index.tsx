@@ -35,15 +35,13 @@ interface CategoryData {
 }
 
 export function Resume() {
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
   const [selectedDate, setSelectedDate] = useState(new Date())
-  const [time, setTime] = useState(2)
   const [totalCategories, setTotalByCategories] = useState<CategoryData[]>([])
 
   const theme = useTheme()
 
   function handleDateChange (action: 'next' | 'prev') {
-    setIsLoading(true)
     if (action === 'next') {
       setSelectedDate(addMonths(selectedDate, 1))
     } else {
@@ -52,6 +50,7 @@ export function Resume() {
   }
 
   async function loadingData () {
+    setIsLoading(true)
     const dataKey = '@gofinances:transactions'
     const response = await AsyncStorage.getItem(dataKey)
     const responseFormatted = response? JSON.parse(response) : []
@@ -102,18 +101,9 @@ export function Resume() {
     setIsLoading(false)
   }
 
-  useEffect( () => {
-    const t = setInterval(
-      () => setTime(2),
-      200,
-    );
-    loadingData()
-    return () => clearInterval(t)
-  }, [selectedDate] )
-
   useFocusEffect(useCallback( () => {
     loadingData()
-    }, [] )
+    }, [selectedDate] )
   )
 
   return (

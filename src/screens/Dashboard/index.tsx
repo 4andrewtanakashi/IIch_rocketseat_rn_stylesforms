@@ -44,7 +44,6 @@ export function Dashboard() {
   const [isLoading, setIsLoading] = useState(true)
   const [data, setData] = useState<DataListProps[]>([])
   const [highLightData, setHighLightData] = useState<HighLightData>({} as HighLightData)
-  const [state, setState] = useState(2)
 
   const theme = useTheme()
 
@@ -133,15 +132,6 @@ export function Dashboard() {
     } )
     setIsLoading(false)
   }
-
-  useEffect( () => {
-    const t = setInterval(
-      () => setState(2),
-      200,
-    );
-    loadTransactions()
-    return () => clearInterval(t)
-  }, [] )
 
   useFocusEffect(useCallback( () => {
         loadTransactions()
