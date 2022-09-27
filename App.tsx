@@ -1,7 +1,6 @@
 import React from 'react'
 import { ThemeProvider } from 'styled-components'
 import AppLoading from 'expo-app-loading'
-import { NavigationContainer } from '@react-navigation/native'
 import { StatusBar } from 'react-native'
 
 import {
@@ -11,13 +10,12 @@ import {
   Poppins_700Bold
 } from '@expo-google-fonts/poppins'
 
+import { Routes } from './src/routes'
 import theme from './src/global/styles/theme'
-import { AppRoutes } from './src/routes/app.routes'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import 'intl'
 import 'intl/locale-data/jsonp/pt-BR'
 
-import { SignIn } from './src/screens/SignIn'
 import { AuthProvider } from './src/hooks/auth'
 
 export default function App() {
@@ -34,13 +32,10 @@ export default function App() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <ThemeProvider theme={theme}>
-        <NavigationContainer>
-          <StatusBar barStyle={'light-content'}/>
-          {/* <AppRoutes /> */}
-          <AuthProvider>
-            <SignIn />
-          </AuthProvider>
-        </NavigationContainer>
+        <StatusBar barStyle={'light-content'}/>
+        <AuthProvider>
+          <Routes />
+        </AuthProvider>
       </ThemeProvider>
     </GestureHandlerRootView>
   );
