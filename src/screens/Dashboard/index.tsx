@@ -50,16 +50,20 @@ export function Dashboard() {
   const { signOut, user } = useAuth()
 
   function getLastTransactionDate (collection : DataListProps[], type : 'positive' | 'negative') {
+    const collectionFillttred = collection
+      .filter(transaction => transaction.type === type)
+    
+    if (collectionFillttred.length === 0) {
+      return ''
+    }
     const lastTransactionEntries = new Date( Math.max.apply( Math, 
-        collection.filter(
-          (transaction) => transaction.type === type
-        ).map(
+        collectionFillttred.map(
           (transaction) => new Date(transaction.date).getTime()
         )
       ) 
     )
-
-    return lastTransactionEntries
+    
+    return `${lastTransactionEntries.getDate()} de ${lastTransactionEntries.toLocaleString('pt-BR', { month: 'long' } ) }`
   }
 
   async function loadTransactions () {
@@ -105,8 +109,6 @@ export function Dashboard() {
     
     const lastTrasactionEntries = getLastTransactionDate(transactions, 'positive')
     const lastTrasactionExpensives = getLastTransactionDate(transactions, 'negative')
-    const totalInterval = `01 à ${lastTrasactionExpensives.getDate()} de ${lastTrasactionExpensives.toLocaleString('pt-BR', { month: 'long' } ) }`
-    
 
     const total = entriesTotal - expensiveTotal
     setHighLightData( {
@@ -115,21 +117,24 @@ export function Dashboard() {
             style: 'currency',
             currency: 'BRL'
           } ),
-          lastTrasactionDate: `${lastTrasactionEntries.getDate()} de ${lastTrasactionEntries.toLocaleString('pt-BR', { month: 'long' } ) }`
+          lastTrasactionDate: lastTrasactionEntries !== ''? 
+            `Última entrada dia ${lastTrasactionEntries}` : 'Não há transações'
         },
         expensives: {
           amountTotal: expensiveTotal.toLocaleString('pt-BR', {
             style: 'currency',
             currency: 'BRL'
           } ),
-          lastTrasactionDate: `${lastTrasactionExpensives.getDate()} de ${lastTrasactionExpensives.toLocaleString('pt-BR', { month: 'long' } ) }`
+          lastTrasactionDate: lastTrasactionExpensives !== ''?
+            `Última saída dia ${lastTrasactionExpensives}` : 'Não há transações'
         },
         total: {
           amountTotal: total.toLocaleString('pt-BR', {
             style: 'currency',
             currency: 'BRL'
           } ),
-          lastTrasactionDate: totalInterval
+          lastTrasactionDate: lastTrasactionExpensives !== ''?
+          `01 à ${lastTrasactionExpensives}` : 'Não há transações'
         }
     } )
     setIsLoading(false)
@@ -175,13 +180,13 @@ export function Dashboard() {
               type={'up'}
               title={'Entradas'}
               amount={highLightData?.entries?.amountTotal}
-              lastTransaction={`Última entrada dia ${highLightData.entries.lastTrasactionDate}`}
+              lastTransaction={highLightData.entries.lastTrasactionDate}
             />
             <HighligthCard
               type={'down'}
               title={'Saídas'}
               amount={highLightData?.expensives?.amountTotal}
-              lastTransaction={`Última saída dia ${highLightData.expensives.lastTrasactionDate}`}
+              lastTransaction={highLightData.expensives.lastTrasactionDate}
             />
             <HighligthCard
               type={'total'}
