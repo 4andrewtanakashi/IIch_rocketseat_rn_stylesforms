@@ -16,7 +16,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import 'intl'
 import 'intl/locale-data/jsonp/pt-BR'
 
-import { AuthProvider } from './src/hooks/auth'
+import { AuthProvider, useAuth } from './src/hooks/auth'
 
 export default function App() {
   const [fontsLoader] = useFonts({
@@ -25,7 +25,9 @@ export default function App() {
     Poppins_700Bold
   });
 
-  if (!fontsLoader) {
+  const { isLoading } = useAuth()
+
+  if (!fontsLoader || isLoading) {
     return <AppLoading />
   }
 
