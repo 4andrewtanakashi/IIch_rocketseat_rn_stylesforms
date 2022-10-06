@@ -12,9 +12,9 @@ const Providers: React.FC = ( { children } ) => (
   </ThemeProvider>
 )
 
-describe('Register Screen', async () => {
+describe('Register Screen', () => {
   it('Should be open category modal when user click onte category button',
-    () => {
+    async () => {
       const { getByTestId } = render( <Register />, { wrapper: Providers } )
       
       const categoryModal = getByTestId('modal-category')
