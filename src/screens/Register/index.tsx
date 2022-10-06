@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import {
   Modal,
   Keyboard,
@@ -180,6 +180,7 @@ export function Register () {
               </TransactionTypes>
 
               <CategorySelectDropdown
+                testID={'button-category'}
                 title={category.name}
                 onPress={handleOpenSelectCategoryModal}
               />
@@ -191,7 +192,7 @@ export function Register () {
             />
           </Form>
 
-          <Modal visible={isCategoryModalOpen}>
+          <Modal testID={'modal-category'} visible={isCategoryModalOpen}>
             <CategorySelect 
               category={category}
               setCategory={setCategory}
